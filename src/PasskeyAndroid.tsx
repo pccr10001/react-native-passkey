@@ -72,17 +72,10 @@ export class PasskeyAndroid {
   private static handleNativeResponse(
     response: PasskeyRegistrationResult & PasskeyAuthenticationResult
   ): PasskeyRegistrationResult & PasskeyAuthenticationResult {
-    // Transform Base64URL Response to Base64
-    let id = response.id;
-    if (id.length % 4 !== 0) {
-      id += '==='.slice(0, 4 - (id.length % 4));
-    }
-    id = id.replace(/-/g, '+').replace(/_/g, '/');
-
     return {
       ...response,
-      id.replace(/\+/g, '-').replace(/\//g, '_').replace(/\=+$/, ''),
-      rawId: id.replace(/\+/g, '-').replace(/\//g, '_').replace(/\=+$/, ''),
+      response.id,
+      rawId: response.id,
     };
   }
 }
