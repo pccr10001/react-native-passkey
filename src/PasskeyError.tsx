@@ -62,36 +62,5 @@ export function handleNativeError(_error: unknown): PasskeyError {
   if (typeof _error !== 'object') {
     return UnknownError;
   }
-
-  const error = String(_error).split(' ')[1];
-
-  switch (error) {
-    case 'NotSupported': {
-      return NotSupportedError;
-    }
-    case 'RequestFailed': {
-      return RequestFailedError;
-    }
-    case 'UserCancelled': {
-      return UserCancelledError;
-    }
-    case 'InvalidChallenge': {
-      return InvalidChallengeError;
-    }
-    case 'NotConfigured': {
-      return NotConfiguredError;
-    }
-    case 'Interrupted': {
-      return InterruptedError;
-    }
-    case 'NoCredentials': {
-      return NoCredentialsError;
-    }
-    case 'UnknownError': {
-      return UnknownError;
-    }
-    default: {
-      return NativeError(String(_error));
-    }
-  }
+  return NativeError(String(_error));
 }
