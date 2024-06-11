@@ -45,7 +45,7 @@ export class PasskeyiOS {
   ): PasskeyiOSRegistrationData {
     return {
       rpId: request.rp.id,
-      challenge: urlB64toStdB64(request.challenge),
+      challenge: this.urlB64toStdB64(request.challenge),
       name: request.user.displayName,
       userID: request.user.id,
     };
@@ -58,11 +58,11 @@ export class PasskeyiOS {
     result: PasskeyiOSRegistrationResult
   ): PasskeyRegistrationResult {
     return {
-      id: stdB64toUrlB64(result.credentialID),
-      rawId: stdB64toUrlB64(result.credentialID),
+      id: this.stdB64toUrlB64(result.credentialID),
+      rawId: this.stdB64toUrlB64(result.credentialID),
       response: {
-        clientDataJSON: stdB64toUrlB64(result.response.rawClientDataJSON),
-        attestationObject: stdB64toUrlB64(result.response.rawAttestationObject),
+        clientDataJSON: this.stdB64toUrlB64(result.response.rawClientDataJSON),
+        attestationObject: this.stdB64toUrlB64(result.response.rawAttestationObject),
       },
     };
   }
@@ -81,7 +81,7 @@ export class PasskeyiOS {
     try {
       const response = await NativePasskey.authenticate(
         request.rpId,
-        urlB64toStdB64(request.challenge),
+        this.urlB64toStdB64(request.challenge),
         withSecurityKey
       );
       return this.handleNativeAuthenticationResult(response);
@@ -97,13 +97,13 @@ export class PasskeyiOS {
     result: PasskeyiOSAuthenticationResult
   ): PasskeyAuthenticationResult {
     return {
-      id: stdB64toUrlB64(result.credentialID),
-      rawId: stdB64toUrlB64(result.credentialID),
+      id: this.stdB64toUrlB64(result.credentialID),
+      rawId: this.stdB64toUrlB64(result.credentialID),
       response: {
-        clientDataJSON: stdB64toUrlB64(result.response.rawClientDataJSON),
-        authenticatorData: stdB64toUrlB64(result.response.rawAuthenticatorData),
-        signature: stdB64toUrlB64(result.response.signature),
-        userHandle: stdB64toUrlB64(result.userID),
+        clientDataJSON: this.stdB64toUrlB64(result.response.rawClientDataJSON),
+        authenticatorData: this.stdB64toUrlB64(result.response.rawAuthenticatorData),
+        signature: this.stdB64toUrlB64(result.response.signature),
+        userHandle: this.stdB64toUrlB64(result.userID),
       },
     };
   }
