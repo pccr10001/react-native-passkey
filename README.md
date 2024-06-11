@@ -8,6 +8,11 @@ Native Passkeys on iOS 15.0+ and Android API 28+ using React Native.
 >
 > Progress is being tracked [here](https://github.com/f-23/react-native-passkey/issues/2).
 
+## Difference between original repo and this
+* Change all base64 encoding to URL-safe and no padding to fit FIDO standard
+* Add some missing fields on iOS device
+* Works with go-webauthn
+
 ## Installation
 
 #### Javascript
@@ -15,13 +20,13 @@ Native Passkeys on iOS 15.0+ and Android API 28+ using React Native.
 For the javascript part of the installation you need to run
 
 ```sh
-npm install react-native-passkey
+npm install pccr10001/react-native-passkey
 ```
 
 or
 
 ```sh
-yarn add react-native-passkey
+yarn add pccr10001/react-native-passkey
 ```
 
 #### Native
