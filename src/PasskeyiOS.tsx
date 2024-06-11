@@ -45,7 +45,7 @@ export class PasskeyiOS {
   ): PasskeyiOSRegistrationData {
     return {
       rpId: request.rp.id,
-      challenge: request.challenge,
+      challenge: urlB64toStdB64(request.challenge),
       name: request.user.displayName,
       userID: request.user.id,
     };
@@ -58,11 +58,11 @@ export class PasskeyiOS {
     result: PasskeyiOSRegistrationResult
   ): PasskeyRegistrationResult {
     return {
-      id: result.credentialID,
-      rawId: result.credentialID,
+      id: stdB64toUrlB64(result.credentialID),
+      rawId: stdB64toUrlB64(result.credentialID),
       response: {
-        clientDataJSON: result.response.rawClientDataJSON,
-        attestationObject: result.response.rawAttestationObject,
+        clientDataJSON: stdB64toUrlB64(result.response.rawClientDataJSON),
+        attestationObject: stdB64toUrlB64(result.response.rawAttestationObject),
       },
     };
   }
@@ -81,7 +81,7 @@ export class PasskeyiOS {
     try {
       const response = await NativePasskey.authenticate(
         request.rpId,
-        request.challenge,
+        urlB64toStdB64(request.challenge),
         withSecurityKey
       );
       return this.handleNativeAuthenticationResult(response);
@@ -97,15 +97,26 @@ export class PasskeyiOS {
     result: PasskeyiOSAuthenticationResult
   ): PasskeyAuthenticationResult {
     return {
-      id: result.credentialID,
-      rawId: result.credentialID,
+      id: stdB64toUrlB64(result.credentialID),
+      rawId: stdB64toUrlB64(result.credentialID),
       response: {
-        clientDataJSON: result.response.rawClientDataJSON,
-        authenticatorData: result.response.rawAuthenticatorData,
-        signature: result.response.signature,
-        userHandle: result.userID,
+        clientDataJSON: stdB64toUrlB64(result.response.rawClientDataJSON),
+        authenticatorData: stdB64toUrlB64(result.response.rawAuthenticatorData),
+        signature: stdB64toUrlB64(result.response.signature),
+        userHandle: stdB64toUrlB64(result.userID),
       },
     };
+  }
+
+  private static urlB64toStdB64(s: string): string {
+    let base64Standard = s.replace(/-/g, '+').replace(/_/g, '/');
+    while (base64Standard.length % 4) {
+        base64Standard += '=';
+    }
+    return base64Standard;
+  }
+  private static stdB64toUrlB64 = (s: string): string {
+    return s.replace(/\+/g, '-').replace(/\//g, '_').replace(/\=+$/, '');
   }
 }
 
