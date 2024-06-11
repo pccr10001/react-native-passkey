@@ -74,7 +74,7 @@ export class PasskeyAndroid {
   ): PasskeyRegistrationResult & PasskeyAuthenticationResult {
     return {
       ...response,
-      response.id,
+      id: response.id,
       rawId: response.id,
     };
   }
