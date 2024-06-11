@@ -81,8 +81,8 @@ export class PasskeyAndroid {
 
     return {
       ...response,
-      id,
-      rawId: id,
+      id.replace(/\+/g, '-').replace(/\//g, '_').replace(/\=+$/, ''),
+      rawId: id.replace(/\+/g, '-').replace(/\//g, '_').replace(/\=+$/, ''),
     };
   }
 }
