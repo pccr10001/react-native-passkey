@@ -115,7 +115,7 @@ export class PasskeyiOS {
     }
     return base64Standard;
   }
-  private static stdB64toUrlB64 = (s: string): string {
+  private static stdB64toUrlB64(s: string): string {
     return s.replace(/\+/g, '-').replace(/\//g, '_').replace(/\=+$/, '');
   }
 }
