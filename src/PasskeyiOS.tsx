@@ -60,6 +60,7 @@ export class PasskeyiOS {
     return {
       id: this.stdB64toUrlB64(result.credentialID),
       rawId: this.stdB64toUrlB64(result.credentialID),
+      type: "public-key",
       response: {
         clientDataJSON: this.stdB64toUrlB64(result.response.rawClientDataJSON),
         attestationObject: this.stdB64toUrlB64(result.response.rawAttestationObject),
@@ -99,6 +100,7 @@ export class PasskeyiOS {
     return {
       id: this.stdB64toUrlB64(result.credentialID),
       rawId: this.stdB64toUrlB64(result.credentialID),
+      type: "public-key",
       response: {
         clientDataJSON: this.stdB64toUrlB64(result.response.rawClientDataJSON),
         authenticatorData: this.stdB64toUrlB64(result.response.rawAuthenticatorData),
